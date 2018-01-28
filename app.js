@@ -35,17 +35,17 @@ function getHoroscope(date,sign){
         var tomorrowDate = new Date(new Date().getTime()+86400000);
         var tomorrow  = tomorrowDate.getFullYear()+ "-" + (tomorrowDate.getMonth()+1) + "-"+tomorrowDate.getDate();
         var today = todayDate.getFullYear()+ "-" + (todayDate.getMonth()+1) + "-"+ todayDate.getDate();
-        if(date == today){
+        if(date === today){
             querydate = "today"
         } else{
-            if(date == tomorrow){
+            if(date === tomorrow){
                 querydate = "tomorrow"
             }
             else{
-                querydate =""
+                querydate = ""
             }
         }
-        if(querydate != ""){
+        if(querydate !== ""){
             console.log(querydate);
             request({
                 uri:"http://theastrologer-api.herokuapp.com/api/horoscope/"+sign+"/"+querydate,
