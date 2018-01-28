@@ -9,7 +9,6 @@ app.post("/webhook", (req,res)=>{
     if(action === "input.asking_for_horoscope"){
         if(req.body.result.actionIncomplete === false){
             var date = req.body.result.parameters.date;
-            console.log(date);
             var sign = req.body.result.parameters.sunsign.toLowerCase();
             var querydate = "";
             var todayDate = new Date()
@@ -42,7 +41,6 @@ app.post("/webhook", (req,res)=>{
                     }
                 });
             }
-            console.log(sign);
         }
     }
 })
