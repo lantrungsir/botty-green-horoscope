@@ -32,7 +32,7 @@ function getHoroscope(date,sign){
     return new Promise((resolve, reject)=>{
         var querydate ="";
         var todayDate = new Date()
-        var tomorrowDate = new Date(Date.getTime()+86400000);
+        var tomorrowDate = new Date(new Date().getTime()+86400000);
         var tomorrow  = tomorrowDate.getFullYear()+ "-" + (tomorrowDate.getMonth()+1) + "-"+tomorrowDate.getDate();
         var today = todayDate.getFullYear()+ "-" + (todayDate.getMonth()+1) + "-"+todayDate.getDate();
         if(date == today){
