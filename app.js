@@ -39,13 +39,8 @@ function getHoroscope(date,sign){
         if(date === today){
             querydate = "today"
         } 
-        else{
-            if(date === tomorrow){
+        if(date === tomorrow){
                 querydate = "tomorrow"
-            }
-            else{
-                querydate = ""
-            }
         }
         if(querydate !== ""){
             console.log(querydate);
