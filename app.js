@@ -13,7 +13,7 @@ app.post("/webhook", (req,res)=>{
             var sign = req.body.result.parameters.sunsign.toLowerCase();
             console.log(sign);
                 var data = getHoroscope(date, sign)
-                var output = "you're " +data['keywords']+ "today. Also there is something you must note here:\n " +data.horoscope+ "\n"+data.mood+ "mood today. G'day mate :)";
+                var output = "you're " +data.keywords+ "today. Also there is something you must note here:\n " +data.horoscope+ "\n"+data.mood+ "mood today. G'day mate :)";
                 res.send(JSON.stringify({ 'speech': output, 'displayText': output }));     
         }
     }
