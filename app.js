@@ -31,7 +31,7 @@ app.listen(app.get('port'), function() {
 function getHoroscope(date,sign){
     //request
     return new Promise((resolve, reject)=>{
-        var querydate ="";
+        var querydate = "";
         var todayDate = new Date()
         var tomorrowDate = new Date(new Date().getTime()+86400000);
         var tomorrow  = tomorrowDate.getFullYear()+ "-" + (tomorrowDate.getMonth()+1) + "-"+tomorrowDate.getDate();
@@ -42,7 +42,7 @@ function getHoroscope(date,sign){
         if(date === tomorrow){
                 querydate = "tomorrow"
         }
-        if(querydate !== ""){
+        if(querydate ==="today" || querydate ==="tomorrow"){
             console.log(querydate);
             request({
                 uri:"http://theastrologer-api.herokuapp.com/api/horoscope/"+sign+"/"+querydate,
