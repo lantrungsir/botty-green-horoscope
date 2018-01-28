@@ -7,10 +7,11 @@ app.use(bodyParser.json());
 app.post("/webhook", (req,res)=>{
     var action = req.body.result.action;
     if(action =="input.asking_for_horoscope"){
-        if(req.body.result.actionIncomplete == false){
+        if(req.body.result.actionIncomplete === false){
             var date = req.body.result.parameters.date;
             console.log(date);
             var sign = req.body.result.parameters.sunsign.toLowerCase();
+            console.log(sign);
             getHoroscope(date, sign).then((response)=>{
                 var data = JSON.parse(response)
                 var output = "you're ${data.keywords} today. Also there is something you must note here:\n ${data.horoscope} \n ${data.mood} mood today. G'day mate :)";
@@ -28,7 +29,7 @@ app.listen(app.get('port'), function() {
 	console.log('running on port', app.get('port'))
 })
 //useful functions :
-function getHoroscope(date,sign){
+function getHoroscope(date, sign){
     //request
     return new Promise((resolve, reject)=>{
         var querydate = "";
