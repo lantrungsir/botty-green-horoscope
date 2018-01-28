@@ -22,10 +22,25 @@ app.post("/webhook", (req,res)=>{
             if(date === tomorrow){
                 querydate = "tomorrow"
             }
+            if(querydate === "today" || querydate === "tomorrow"){
+                console.log(querydate);
+                request({
+                    uri:"http://theastrologer-api.herokuapp.com/api/horoscope/"+sign+"/"+querydate,
+                    method : "GET",
+                    json:true
+                },(err,res,body)=>{
+                    console.log(err)
+                    if(res.body.error) {
+                        console.log(res.body.error)
+                    }
+                    else{
+                        data = body;
+                        var output = "you're " +data.keywords+ "today. Also there is something you must note here:\n " +data.horoscope+ "\n"+data.mood+ "mood today. G'day mate :)";
+                        res.send(JSON.stringify({ 'speech': output, 'displayText': output }));  
+                    }
+                });
+            }
             console.log(sign);
-                var data = getHoroscope(querydate, sign)
-                var output = "you're " +data.keywords+ "today. Also there is something you must note here:\n " +data.horoscope+ "\n"+data.mood+ "mood today. G'day mate :)";
-                res.send(JSON.stringify({ 'speech': output, 'displayText': output }));     
         }
     }
 })
@@ -33,25 +48,6 @@ app.listen(app.get('port'), function() {
 	console.log('running on port', app.get('port'))
 })
 //useful functions :
-function getHoroscope(querydate, sign){
-    //request
-        if(querydate === "today" || querydate === "tomorrow"){
-            console.log(querydate);
-            request({
-                uri:"http://theastrologer-api.herokuapp.com/api/horoscope/"+sign+"/"+querydate,
-                method : "GET",
-                json:true
-            },(err,res,body)=>{
-                console.log(err)
-                if(res.body.error) {
-                    console.log(res.body.error)
-                }
-                else{
-                    return body;
-                }
-            });
-        }
-}
 //SIGN REQUEST
 function retrieveSign(date){
     var month = date.substring(5,7);
