@@ -28,10 +28,10 @@ app.post("/webhook", (req,res)=>{
                     uri:"http://theastrologer-api.herokuapp.com/api/horoscope/"+sign+"/"+querydate,
                     method : "GET",
                     json:true
-                },(err,res,body)=>{
+                },(err,response,body)=>{
                     console.log(err)
-                    if(res.body.error) {
-                        console.log(res.body.error)
+                    if(response.body.error) {
+                        console.log(response.body.error)
                     }
                     else{
                         data = body;
