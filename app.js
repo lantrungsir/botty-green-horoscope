@@ -11,7 +11,6 @@ app.post("/webhook", (req,res)=>{
             var date = req.body.result.parameters.date;
             getHoroscope(date);
         }
-       
     }
     res.sendStatus(200)
 })
@@ -20,6 +19,8 @@ app.listen(app.get('port'), function() {
 })
 //useful functions :
 function getHoroscope(date){
+    //retrieve the signs of people
+    //request
     request({
         uri:"http://theastrologer-api.herokuapp.com/api",
         method : "GET",
@@ -29,4 +30,7 @@ function getHoroscope(date){
         if(res.body.err) console.log(res.body.err);
         console.log(body);
     });
+}
+function retrieveSign(date){
+
 }
