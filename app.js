@@ -12,16 +12,10 @@ app.post("/webhook", (req,res)=>{
             console.log(date);
             var sign = req.body.result.parameters.sunsign.toLowerCase();
             console.log(sign);
-            getHoroscope(date, sign)
-            .then((response)=>{
-                 var data = response;
+            data = getHoroscope(date, sign)
                 var output = "you're ${data.keywords} today. Also there is something you must note here:\n ${data.horoscope} \n ${data.mood} mood today. G'day mate :)";
                 res.setHeader('Content-Type', 'application/json');
-                res.send(JSON.stringify({ 'speech': output, 'displayText': output }));
-            })
-            .catch((error)=>{
-                console.log(error);
-            })
+                res.send(JSON.stringify({ 'speech': output, 'displayText': output }));     
         }
     }
     res.sendStatus(200)
@@ -30,9 +24,8 @@ app.listen(app.get('port'), function() {
 	console.log('running on port', app.get('port'))
 })
 //useful functions :
-async function getHoroscope(date, sign){
+function getHoroscope(date, sign){
     //request
-    return new Promise((resolve, reject)=>{
         var querydate = "";
         var todayDate = new Date()
         var tomorrowDate = new Date(new Date().getTime()+86400000);
@@ -42,7 +35,7 @@ async function getHoroscope(date, sign){
             querydate = "today"
         } 
         if(date === tomorrow){
-                querydate = "tomorrow"
+            querydate = "tomorrow"
         }
         if(querydate ==="today" || querydate ==="tomorrow"){
             console.log(querydate);
@@ -51,16 +44,15 @@ async function getHoroscope(date, sign){
                 method : "GET",
                 json:true
             },(err,res,body)=>{
-                if(err) reject(err);
+                console.log(err)
                 if(res.body.error) {
-                    reject(res.body.error)
+                    console.log(res.body.error)
                 }
                 else{
-                    resolve(body);
+                    return body;
                 }
             });
         }
-    })
 }
 //SIGN REQUEST
 function retrieveSign(date){
