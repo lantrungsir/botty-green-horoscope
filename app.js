@@ -21,7 +21,6 @@ app.post("/webhook", (req,res)=>{
             if(date === tomorrow){
                 querydate = "tomorrow"
             }
-            if(querydate === "today" || querydate === "tomorrow"){
                 console.log(querydate);
                 request({
                     uri:"http://theastrologer-api.herokuapp.com/api/horoscope/"+sign+"/"+querydate,
@@ -40,7 +39,6 @@ app.post("/webhook", (req,res)=>{
                         res.send(JSON.stringify({ 'speech': output, 'displayText': output }));  
                     }
                 });
-            }
         }
     }
 })
