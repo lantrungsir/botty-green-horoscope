@@ -11,8 +11,19 @@ app.post("/webhook", (req,res)=>{
             var date = req.body.result.parameters.date;
             console.log(date);
             var sign = req.body.result.parameters.sunsign.toLowerCase();
+            var querydate = "";
+            var todayDate = new Date()
+            var tomorrowDate = new Date(new Date().getTime()+86400000);
+            var tomorrow  = tomorrowDate.getFullYear()+ "-" + (tomorrowDate.getMonth()+1) + "-"+tomorrowDate.getDate();
+            var today = todayDate.getFullYear()+ "-" + (todayDate.getMonth()+1) + "-"+ todayDate.getDate();
+            if(date === today){
+                querydate = "today"
+            } 
+            if(date === tomorrow){
+                querydate = "tomorrow"
+            }
             console.log(sign);
-                var data = getHoroscope(date, sign)
+                var data = getHoroscope(querydate, sign)
                 var output = "you're " +data.keywords+ "today. Also there is something you must note here:\n " +data.horoscope+ "\n"+data.mood+ "mood today. G'day mate :)";
                 res.send(JSON.stringify({ 'speech': output, 'displayText': output }));     
         }
@@ -22,20 +33,9 @@ app.listen(app.get('port'), function() {
 	console.log('running on port', app.get('port'))
 })
 //useful functions :
-function getHoroscope(date, sign){
+function getHoroscope(querydate, sign){
     //request
-        var querydate = "";
-        var todayDate = new Date()
-        var tomorrowDate = new Date(new Date().getTime()+86400000);
-        var tomorrow  = tomorrowDate.getFullYear()+ "-" + (tomorrowDate.getMonth()+1) + "-"+tomorrowDate.getDate();
-        var today = todayDate.getFullYear()+ "-" + (todayDate.getMonth()+1) + "-"+ todayDate.getDate();
-        if(date === today){
-            querydate = "today"
-        } 
-        if(date === tomorrow){
-            querydate = "tomorrow"
-        }
-        if(querydate ==="today" || querydate ==="tomorrow"){
+        if(querydate === "today" || querydate === "tomorrow"){
             console.log(querydate);
             request({
                 uri:"http://theastrologer-api.herokuapp.com/api/horoscope/"+sign+"/"+querydate,
