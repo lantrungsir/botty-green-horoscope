@@ -46,7 +46,7 @@ async function getHoroscope(date, sign){
         }
         if(querydate ==="today" || querydate ==="tomorrow"){
             console.log(querydate);
-            await request({
+            request({
                 uri:"http://theastrologer-api.herokuapp.com/api/horoscope/"+sign+"/"+querydate,
                 method : "GET",
                 json:true
