@@ -11,8 +11,8 @@ app.post("/webhook", (req,res)=>{
             var date = req.body.result.parameters.date;
             var sign = req.body.result.parameters.sunsign.toLowerCase();
             getHoroscope(date, sign).then((response)=>{
-                data = JSON.parse(response)
-                var output = "you're ${data.keywords} today. Also there is something you must note here:/n${data.horoscope}/n${data.mood} mood today. G'day mate :)";
+                var data = JSON.parse(response)
+                var output = "you're ${data.keywords} today. Also there is something you must note here:\n ${data.horoscope} \n ${data.mood} mood today. G'day mate :)";
                 res.setHeader('Content-Type', 'application/json');
                 res.send(JSON.stringify({ 'speech': output, 'displayText': output }));
             })
