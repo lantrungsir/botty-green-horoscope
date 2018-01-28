@@ -29,9 +29,10 @@ app.post("/webhook", (req,res)=>{
                     method : "GET",
                     json:true
                 },(err,response,body)=>{
-                    console.log(err)
+                    console.log(err);
                     if(response.body.error) {
                         console.log(response.body.error)
+                        res.send(JSON.stringify({ 'speech': response.body.error, 'displayText': response.body.error }));  
                     }
                     else{
                         var data = body;
