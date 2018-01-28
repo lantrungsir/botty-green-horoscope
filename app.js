@@ -17,7 +17,6 @@ app.post("/webhook", (req,res)=>{
                 res.send(JSON.stringify({ 'speech': output, 'displayText': output }));     
         }
     }
-    res.sendStatus(200)
 })
 app.listen(app.get('port'), function() {
 	console.log('running on port', app.get('port'))
