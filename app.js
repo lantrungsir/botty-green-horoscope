@@ -9,6 +9,7 @@ app.post("/webhook", (req,res)=>{
     if(action =="input.asking_for_horoscope"){
         if(req.body.result.actionIncomplete == false){
             var date = req.body.result.parameters.date;
+            console.log(date);
             var sign = req.body.result.parameters.sunsign.toLowerCase();
             getHoroscope(date, sign).then((response)=>{
                 var data = JSON.parse(response)
@@ -37,7 +38,8 @@ function getHoroscope(date,sign){
         var today = todayDate.getFullYear()+ "-" + (todayDate.getMonth()+1) + "-"+ todayDate.getDate();
         if(date === today){
             querydate = "today"
-        } else{
+        } 
+        else{
             if(date === tomorrow){
                 querydate = "tomorrow"
             }
@@ -54,7 +56,7 @@ function getHoroscope(date,sign){
             },(err,res,body)=>{
                 if(err) reject(err);
                 if(res.body.error) {
-                    reject(res.body.err)
+                    reject(res.body.error)
                 }
                 else{
                     resolve(body);
