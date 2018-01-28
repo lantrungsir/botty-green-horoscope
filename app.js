@@ -30,7 +30,7 @@ app.listen(app.get('port'), function() {
 	console.log('running on port', app.get('port'))
 })
 //useful functions :
-function getHoroscope(date, sign){
+async function getHoroscope(date, sign){
     //request
     return new Promise((resolve, reject)=>{
         var querydate = "";
@@ -46,7 +46,7 @@ function getHoroscope(date, sign){
         }
         if(querydate ==="today" || querydate ==="tomorrow"){
             console.log(querydate);
-            request({
+            await request({
                 uri:"http://theastrologer-api.herokuapp.com/api/horoscope/"+sign+"/"+querydate,
                 method : "GET",
                 json:true
@@ -62,6 +62,7 @@ function getHoroscope(date, sign){
         }
     })
 }
+//SIGN REQUEST
 function retrieveSign(date){
     var month = date.substring(5,7);
     var day = date.substring(8,10);
