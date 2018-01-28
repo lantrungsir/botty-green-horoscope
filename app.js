@@ -6,7 +6,7 @@ app.use(bodyParser.json());
 //endpoint
 app.post("/webhook", (req,res)=>{
     var action = req.body.result.action;
-    if(action =="input.asking_for_horoscope"){
+    if(action === "input.asking_for_horoscope"){
         if(req.body.result.actionIncomplete === false){
             var date = req.body.result.parameters.date;
             console.log(date);
@@ -34,8 +34,8 @@ app.post("/webhook", (req,res)=>{
                         console.log(response.body.error)
                     }
                     else{
-                        data = body;
-                        var output = "you're " +data.keywords+ "today. Also there is something you must note here:\n " +data.horoscope+ "\n"+data.mood+ "mood today. G'day mate :)";
+                        var data = body;
+                        var output = "you're " + data.keywords+ "today. Also there is something you must note here:\n " +data.horoscope+ "\n"+data.mood+ "mood today. G'day mate :)";
                         res.send(JSON.stringify({ 'speech': output, 'displayText': output }));  
                     }
                 });
