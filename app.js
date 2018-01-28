@@ -10,15 +10,14 @@ app.post("/webhook", (req,res)=>{
         if(req.body.result.actionIncomplete === false){
             var date = req.body.result.parameters.date;
             var sign = req.body.result.parameters.sunsign.toLowerCase();
+
             var querydate = "";
-            var todayDate = new Date()
-            var tomorrowDate = new Date(new Date().getTime()+86400000);
-            var tomorrow  = tomorrowDate.getFullYear()+ "-" + (tomorrowDate.getMonth()+1) + "-"+tomorrowDate.getDate();
-            var today = todayDate.getFullYear()+ "-" + (todayDate.getMonth()+1) + "-"+ todayDate.getDate();
-            if(date === today){
+            var today = new Date()
+            var tomorrow = new Date(new Date().getTime()+ 86400000);
+            if(new Date(date).toDateString() === today.toDateString()){
                 querydate = "today"
             } 
-            if(date === tomorrow){
+            if(new Date(date).toDateString() === tomorrow.toDateString()){
                 querydate = "tomorrow"
             }
                 console.log(querydate);
