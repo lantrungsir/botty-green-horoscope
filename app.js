@@ -34,7 +34,7 @@ app.post("/webhook", (req,res)=>{
                     else{
                         var data = body;
                         console.log(data);
-                        var output = "you're " + data.keywords+ "today. Also there is something you must note here:\n " +data.horoscope+ "\n"+ data.mood+ " mood today. G'day mate :)";
+                        var output = "you're " + data.meta.keywords+ "today. Also there is something you must note here:\n " +data.horoscope+ "\n"+ data.meta.mood+ " mood today. G'day mate :)";
                         res.send(JSON.stringify({ 'speech': output, 'displayText': output }));  
                     }
                 });
