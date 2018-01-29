@@ -64,20 +64,20 @@ function retrieveSign(date){
 }
 
 function getZodiacSign(day, month) {
-  var zodiacSigns = [
-    'capricorn',
-    'aquarius',
-    'pisces',
-    'aries',
-    'taurus',
-    'gemini',
-    'cancer',
-    'leo',
-    'virgo',
-    'libra',
-    'scorpio',
-    'sagittarius'
-  ]
+  var zodiacSigns = {
+    capricorn:'capricorn',
+    aquarius:'aquarius',
+    pisces: 'pisces',
+    aries:'aries',
+    taurus:'taurus',
+    gemini:'gemini',
+    cancer:'cancer',
+    leo:'leo',
+    virgo:'virgo',
+    libra:'libra',
+    scorpio:'scorpio',
+    sagittarius:'sagittarius'
+  }
 
   if((month == 1 && day <= 20) || (month == 12 && day >=22)) {
     return zodiacSigns.capricorn;
