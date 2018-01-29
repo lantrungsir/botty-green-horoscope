@@ -58,8 +58,8 @@ app.listen(app.get('port'), function() {
 //useful functions :
 //SIGN REQUEST
 function retrieveSign(date){
-    var month = date.substring(5,7);
-    var day = date.substring(8,10);
+    var month = parseInt(date.substring(5,7));
+    var day = parseInt(date.substring(8,10));
     function getZodiacSign(day, month) {
         var zodiacSigns = [
           'capricorn',
