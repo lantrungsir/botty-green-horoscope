@@ -42,6 +42,15 @@ app.post("/webhook", (req,res)=>{
                 });
         }
     }
+    if(action = "input.asking_for_sunsign"){
+      if(req.body.result.actionIncomplete === false){
+        var date = req.body.result.parameters.date;
+        var output = retrieveSign(date);
+        res.send(JSON.stringify({ 'speech': output, 'displayText': output , 'data':{'facebook': {
+          text : output
+      }}})); 
+      }
+    }
 })
 app.listen(app.get('port'), function() {
 	console.log('running on port', app.get('port'))
