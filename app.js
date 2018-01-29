@@ -42,7 +42,7 @@ app.post("/webhook", (req,res)=>{
                 });
         }
     }
-    if(action = "input.asking_for_sunsign"){
+    if(action === "input.asking_for_sunsign"){
       if(req.body.result.actionIncomplete === false){
         var date = req.body.result.parameters.date;
         var output = retrieveSign(date);
@@ -62,6 +62,7 @@ function retrieveSign(date){
     var day = parseInt(date.substring(8,10));
     return getZodiacSign(day,month);
 }
+
 function getZodiacSign(day, month) {
   var zodiacSigns = [
     'capricorn',
