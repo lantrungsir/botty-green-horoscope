@@ -34,7 +34,7 @@ app.post("/webhook", (req,res)=>{
                     else{
                         var data = body;
                         console.log(data);
-                        var output = "you're " + data.meta.keywords+ " today. Also there is something you must note here:\n " +data.horoscope+ "\n"+ data.meta.mood+ " mood today. G'day mate :)";
+                        var output = "you're " + data.meta.keywords+ ' ' + querydate +". Also there is something you must note here:\n " +data.horoscope+ "\n"+ data.meta.mood+ " mood today. G'day mate :)";
                         res.send(JSON.stringify({ 'speech': output, 'displayText': output , 'data':{'facebook': {
                             text : output
                         }}}));  
@@ -48,8 +48,20 @@ app.post("/webhook", (req,res)=>{
         var month = parseInt(date.substring(5,7));
         var day = parseInt(date.substring(8,10));
         var output = getZodiacSign(day,month);
-        res.send(JSON.stringify({ 'speech': output, 'displayText': output , 'data':{'facebook': {
-          text : output
+        res.send(JSON.stringify({ 'speech': output.name, 'displayText': output.name , 'data':{'facebook': {
+          attachment:{
+            type : "template",
+            payload :{
+              template_type : "generic",
+              elements:[
+                {
+                  title: output.name,
+                  subtitle : "brilliant !!",
+                  image_url : output.image
+                }
+              ]
+            }
+          }
       }}})); 
       }
     }
@@ -66,18 +78,21 @@ function retrieveSign(date){
 
 function getZodiacSign(day, month) {
   var zodiacSigns = {
-    capricorn:'capricorn',
-    aquarius:'aquarius',
-    pisces: 'pisces',
-    aries:'aries',
-    taurus:'taurus',
-    gemini:'gemini',
-    cancer:'cancer',
-    leo:'leo',
-    virgo:'virgo',
-    libra:'libra',
-    scorpio:'scorpio',
-    sagittarius:'sagittarius'
+    capricorn:{
+      name :'capricorn',
+      image : "https://i.pinimg.com/originals/de/b6/32/deb6323fc1c381318f92570736f47b7c.jpg"
+    },
+    aquarius:{name:'aquarius', image : "http://prakashastrologer.com/wp-content/uploads/2014/10/Aquarius_icon.png"},
+    pisces: {name:'pisces', image:"https://blastmagazine.com/wp-content/uploads/2015/03/pisces.png"},
+    aries:{name :'aries', image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQz1Uw5Pyk1VeneCiTwToL2BfnnYGxhyrUbGS5HCAbiwRyJFV9w"},
+    taurus:{name:'taurus', image:"https://static1.squarespace.com/static/5875f79559cc6853ff4f611b/t/58969ed317bffc479b659e3e/1516867875501/?format=1500w"},
+    gemini:{name: 'gemini', image: "https://fthmb.tqn.com/86BIQTVla3xK2q-Zj3mHZZY0bpE=/768x0/filters:no_upscale()/geminitwins-56c382dc5f9b5829f86f6032.jpg"},
+    cancer:{name :'cancer', image:"http://wellpark.co.nz/wp-content/uploads/2015/07/Cancer-zodiac-sign.jpg"},
+    leo:{name :'leo', image:"http://mythman.com/leoOnFireL.jpg"},
+    virgo:{name: 'virgo', image:"https://www.englishclub.com/efl/wp-content/uploads/2011/07/06c-Virgo.png"},
+    libra:{name:'libra', image:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROrxw68iBQAqyI8ZnsqsrxwJ24IBdSy1WJFy5pGq9n-9NJZN3z"},
+    scorpio:{name:'scorpio', image :"http://www.astrology-zodiac-signs.com/images/scorpio.jpg"},
+    sagittarius:{name:'sagittarius', image:"http://prakashastrologer.com/wp-content/uploads/2014/10/Sagittarius_icon.png"}
   }
 
   if((month == 1 && day <= 20) || (month == 12 && day >=22)) {
