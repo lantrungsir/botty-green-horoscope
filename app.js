@@ -45,7 +45,9 @@ app.post("/webhook", (req,res)=>{
     if(action === "input.asking_for_sunsign"){
       if(req.body.result.actionIncomplete === false){
         var date = req.body.result.parameters.date;
-        var output = retrieveSign(date);
+        var month = parseInt(date.substring(5,7));
+        var day = parseInt(date.substring(8,10));
+        var output = getZodiacSign(day,month);
         res.send(JSON.stringify({ 'speech': output, 'displayText': output , 'data':{'facebook': {
           text : output
       }}})); 
@@ -58,8 +60,7 @@ app.listen(app.get('port'), function() {
 //useful functions :
 //SIGN REQUEST
 function retrieveSign(date){
-    var month = parseInt(date.substring(5,7));
-    var day = parseInt(date.substring(8,10));
+   
     return getZodiacSign(day,month);
 }
 
